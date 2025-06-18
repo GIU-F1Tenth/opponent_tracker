@@ -2,15 +2,12 @@ import rclpy
 from rclpy.node import Node
 
 import numpy as np
-import cv2
 from cv_bridge import CvBridge
-from sensor_msgs.msg import Image, CameraInfo, LaserScan
+from sensor_msgs.msg import Image, CameraInfo
 from vision_msgs.msg import Detection2DArray
-from geometry_msgs.msg import PoseStamped, Point
+from geometry_msgs.msg import PoseStamped
 from image_geometry import PinholeCameraModel
 from visualization_msgs.msg import Marker
-from nav2_msgs.msg import CostmapUpdate
-from builtin_interfaces.msg import Time
 
 
 class KalmanFilter2D:
@@ -57,15 +54,24 @@ class OpponentTracker(Node):
         self.declare_parameter('marker_lifetime', 1.0)
 
         # Get parameters
-        yolo_topic = self.get_parameter('yolo_topic').get_parameter_value().string_value
-        depth_topic = self.get_parameter('depth_topic').get_parameter_value().string_value
-        camera_info_topic = self.get_parameter('camera_info_topic').get_parameter_value().string_value
-        pose_topic = self.get_parameter('pose_topic').get_parameter_value().string_value
-        marker_topic = self.get_parameter('marker_topic').get_parameter_value().string_value
-        frame_id = self.get_parameter('frame_id').get_parameter_value().string_value
-        timer_period = self.get_parameter('timer_period').get_parameter_value().double_value
-        marker_scale = self.get_parameter('marker_scale').get_parameter_value().double_value
-        marker_lifetime = self.get_parameter('marker_lifetime').get_parameter_value().double_value
+        yolo_topic = self.get_parameter(
+            'yolo_topic').get_parameter_value().string_value
+        depth_topic = self.get_parameter(
+            'depth_topic').get_parameter_value().string_value
+        camera_info_topic = self.get_parameter(
+            'camera_info_topic').get_parameter_value().string_value
+        pose_topic = self.get_parameter(
+            'pose_topic').get_parameter_value().string_value
+        marker_topic = self.get_parameter(
+            'marker_topic').get_parameter_value().string_value
+        frame_id = self.get_parameter(
+            'frame_id').get_parameter_value().string_value
+        timer_period = self.get_parameter(
+            'timer_period').get_parameter_value().double_value
+        marker_scale = self.get_parameter(
+            'marker_scale').get_parameter_value().double_value
+        marker_lifetime = self.get_parameter(
+            'marker_lifetime').get_parameter_value().double_value
 
         self.frame_id = frame_id
         self.marker_scale = marker_scale
@@ -162,7 +168,8 @@ class OpponentTracker(Node):
         marker.color.b = 0.0
         marker.color.a = 1.0
         marker.lifetime.sec = int(self.marker_lifetime)
-        marker.lifetime.nanosec = int((self.marker_lifetime - int(self.marker_lifetime)) * 1e9)
+        marker.lifetime.nanosec = int(
+            (self.marker_lifetime - int(self.marker_lifetime)) * 1e9)
 
         self.marker_pub.publish(marker)
 
