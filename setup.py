@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "opponent_tracker_node = opponent_tracker.opponent_tracker_node:main",
         ],
     },
 )
