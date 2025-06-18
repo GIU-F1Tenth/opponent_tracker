@@ -1,0 +1,11 @@
+opponent_tracker_node:
+  ros__parameters:
+    yolo_topic: "/yolo_bboxes"
+    depth_topic: "/depth/image_raw"
+    camera_info_topic: "/camera_info"
+    pose_topic: "/opponent_pose_estimate"
+    marker_topic: "/opponent_obstacle_marker"
+    frame_id: "base_link"
+    timer_period: 0.1
+    marker_scale: 0.5
+    marker_lifetime: 1.0
